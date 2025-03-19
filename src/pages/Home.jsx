@@ -12,7 +12,7 @@ function Home() {
       <div className="container d-flex align-items-center justify-content-between mt-5">
         <Add setUploadVideoStatus={setUploadVideoStatus} />
         <Link style={{ textDecoration: "none" }} to="/watch">
-          <h5>
+          <h5 className="homepage-header">
             <span className="text-primary fw-bold">WATCH HISTORY </span>{" "}
             <i class="fa-solid fa-clock fa-duotone"></i>
           </h5>
@@ -25,7 +25,7 @@ function Home() {
           <div className="col-md-9 text-center">
             <View uploadVideoStatus={uploadVideoStatus} />
           </div>
-          <div className="col-md-3 text-center rounded bg-dark">
+          <div className="col-md-3 text-center rounded bg-dark mt-3 mt-md-0">
             <Category />
           </div>
         </div>

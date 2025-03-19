@@ -57,7 +57,7 @@ function Add({setUploadVideoStatus}) {
   return (
     <>
       <div className="d-flex align-items-center">
-        <h5>
+        <h5 className="homepage-header">
           Upload New Video{" "}
           <button className="btn btn-primarty ms-0" onClick={() => handleShow()}>
             {""}

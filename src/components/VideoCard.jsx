@@ -6,48 +6,59 @@ import { deleteVideo } from "../services/AllApi";
 import { toast } from "react-toastify";
 import { addToHistory } from "../services/AllApi";
 
-function VideoCard({ displayVideo, setDeleteVideoStatus}) {
+function VideoCard({ displayVideo, setDeleteVideoStatus }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = async() => {
-
+  const handleShow = async () => {
     setShow(true);
 
-    const {caption , embeddedLink} = displayVideo
-
+    const { caption, embeddedLink } = displayVideo;
+    // for setting date on history
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth() + 1;
     const day = today.getDate();
     const hour = today.getHours();
-    const minutes = String(today.getMinutes()).padStart(2,'0');
-    const time = day+"/"+month+"/"+year+" "+hour+":"+minutes
-    console.log(time)
+    const minutes = String(today.getMinutes()).padStart(2, "0");
+    const time = day + "/" + month + "/" + year + " " + hour + ":" + minutes;
+    console.log(time);
 
+    // getting caption link time of an item to store as history
     const history = {
-      caption : caption,
-      embeddedLink : embeddedLink,
-      time : time
-    }
+      caption: caption,
+      embeddedLink: embeddedLink,
+      time: time,
+    };
     const response = await addToHistory(history);
   };
 
-  const removeVideo = async (id)=>{
-    const response = await deleteVideo(id)
-    console.log(" delete response")
-    console.log(response)
-    if(response.status === 200){
-      toast.success(`${displayVideo.caption} sucessfully deleted`)
-      setDeleteVideoStatus(response)
-    }else{
-      toast.error("Something went Wrong")
+  const removeVideo = async (id) => {
+    const response = await deleteVideo(id);
+    console.log(" delete response");
+    console.log(response);
+    if (response.status === 200) {
+      toast.success(`${displayVideo.caption} sucessfully deleted`);
+      setDeleteVideoStatus(response);
+    } else {
+      toast.error("Something went Wrong");
     }
-  }
+  };
+
+  const dragStarted = (e, id) => {
+    console.log(`video with ${id} started`);
+    e.dataTransfer.setData("videoId", id);
+  };
+
   return (
     <>
       <div className="container-fluid d-flex flex-row flex-wrap gap-4 mt-4 justify-content-center">
-        <Card style={{ width: "18rem" }} className="bg-dark">
+        <Card
+          style={{ width: "18rem" }}
+          className="bg-dark"
+          draggable
+          onDragStart={(e) => dragStarted(e, displayVideo.id)}
+        >
           <Card.Img
             variant="top"
             width="300px"
@@ -60,7 +71,10 @@ function VideoCard({ displayVideo, setDeleteVideoStatus}) {
               <Card.Title className="text-white" onClick={() => handleShow()}>
                 {displayVideo.caption.slice(0, 14)}
               </Card.Title>
-              <Button variant="danger" onClick={()=> removeVideo(displayVideo.id)}>
+              <Button
+                variant="danger"
+                onClick={() => removeVideo(displayVideo.id)}
+              >
                 <i className="fa-solid fa-trash"></i>
               </Button>
             </div>

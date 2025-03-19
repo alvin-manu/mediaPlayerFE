@@ -9,3 +9,9 @@ body{
   font-optical-sizing: auto;
   font-style: normal;
 }
+
+@media only screen and (max-device-width: 480px) {
+  .homepage-header{
+  font-size: 14px;
+}
+}
