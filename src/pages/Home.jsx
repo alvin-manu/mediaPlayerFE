@@ -19,6 +19,7 @@ function Home() {
         </Link>
       </div>
       <hr />
+      
       {/* second session */}
       <div className="container-fluid">
         <div className="row mt-3 p-2">

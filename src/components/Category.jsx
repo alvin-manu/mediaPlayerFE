@@ -174,7 +174,7 @@ function Category() {
                     <Card.Title
                       className="text-white fs-6"
                     >
-                      {data.caption.length >9 ? data.caption.slice(0, 9) + ".." : data.caption }
+                      {data?.caption?.length >9 ? data.caption.slice(0, 9) + ".." : data.caption }
                     </Card.Title>
                   </div>
                 </Card.Body>
